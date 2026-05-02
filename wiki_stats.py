@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-import os
+import sys
 from pathlib import Path
 from datetime import datetime
+
+WIKI_BASE = Path.home() / "Library/Mobile Documents/iCloud~md~obsidian/Documents/爱马仕华/wiki/wiki/concepts"
 
 
 def fmt_size(chars):
@@ -13,7 +15,11 @@ def fmt_size(chars):
 
 
 def main():
-    wiki_dir = Path.home() / "wiki/wiki/concepts"
+    # 支持命令行参数指定目录，默认用 wiki 路径
+    if len(sys.argv) > 1:
+        wiki_dir = Path(sys.argv[1])
+    else:
+        wiki_dir = WIKI_BASE
 
     if not wiki_dir.exists():
         print(f"目录不存在: {wiki_dir}")
